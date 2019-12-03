@@ -1,4 +1,4 @@
-module Estuary.Languages.CineCer0.Parser (cineCer0,CineCer0Spec) where
+module Estuary.Languages.CineCer0.Parser (escuchar,CineCer0Spec) where
 
 import Language.Haskell.Exts
 import Control.Applicative
@@ -10,8 +10,8 @@ import Estuary.Languages.CineCer0.VideoSpec
 
 type CineCer0Spec = IntMap VideoSpec
 
-cineCer0 :: String -> Either String CineCer0Spec
-cineCer0 s = (f . parseExp) $ ( "do {" ++ s ++ "}" )
+escuchar :: String -> Either String CineCer0Spec
+escuchar s = (f . parseExp) $ ( "do {" ++ s ++ "}" )
   where
     f (ParseOk x) = runExpParser cineCer0Spec x
     f (ParseFailed l s) = Left s
@@ -51,18 +51,25 @@ rat_videoSpec_videoSpec =
   setHeight <$ reserved "h" <|>
   setPosX <$ reserved "posX" <|>
   setPosY <$ reserved "posY" <|>
-  setOpacity <$ reserved "opacity" <|>
-  setBlur <$ reserved "blur" <|>
-  setBrightness <$ reserved "brightness" <|>
-  setContranst <$ reserved "contrast" <|>
-  setGrayscale <$ reserved "grayscale" <|>
-  setSaturate <$ reserved "saturate"
+
+  setOpacity <$ (reserved "opacity" <|> reserved "tempestuoso" <|> reserved " tempestuosa" <|> reserved "tempestuosas" <|> reserved "tempestuosos" <|> reserved "transformado" <|> reserved "transformados" <|> reserved "transformada" <|> reserved "transformadas") <|>
+
+  setBlur <$ (reserved "blur" <|> reserved "consciente" <|> reserved "conscientes" <|> reserved "extraño" <|> reserved "extraña" <|> reserved "extraños" <|> reserved "extrañas" <|> reserved "diferente" <|> reserved "diferentes" <|> reserved "fuerte" <|> reserved "fuertes") <|>
+
+  setBrightness <$ (reserved "brightness" <|> reserved "cariñosamente" <|> reserved "cuidadosamente" <|> reserved "suavemente" <|> reserved "conscientemente" <|> reserved "profundamente") <|>
+
+  setContranst <$ (reserved "contrast" <|> reserved "lejanas" <|> reserved "lejanos" <|> reserved "cercanos" <|> reserved "cercanas" <|> reserved "blanquecinas" <|> reserved "oscuros" <|> reserved "oscuras" <|> reserved "débil" <|> reserved "débiles") <|>
+
+  setGrayscale <$ (reserved "grayscale" <|> reserved "despacio" <|> reserved "deprisa" <|> reserved "claramente" <|> reserved "cómodamente" <|> reserved "rápidamente" <|> reserved "cruelmente") <|>
+
+  setSaturate <$ (reserved "saturate" <|> reserved "lejos"<|> reserved "aquí" <|> reserved "ahí" <|> reserved "allí" <|> reserved "adentro" <|> reserved "cerca" <|> reserved "detrás" <|> reserved "adelante" <|> reserved "debajo")
 
 rat_rat_videoSpec_videoSpec :: ExpParser (Rational -> Rational -> VideoSpec -> VideoSpec)
 rat_rat_videoSpec_videoSpec =
   playEvery <$ reserved "every" <|> --time function
-  setPosCoord <$ reserved "pos" <|>
-  setSize <$ reserved "size"
+  setPosCoord <$ (reserved "pos" <|> reserved "sentada" <|> reserved "escuchar" <|> reserved "escucho" <|> reserved "escuchando" <|> reserved "escucharé" <|> reserved "escuché" <|> reserved "suena" <|> reserved "gustan" <|> reserved "recuerdo" <|> reserved "recordando" <|> reserved "recordaré" <|> reserved "recordé" <|> reserved "atraviesan" <|> reserved "atravesando" <|> reserved  "atravesé" <|> reserved "atravesaré" <|> reserved "hago" <|> reserved "hacen" <|> reserved "haré") <|>
+
+  setSize <$ (reserved "size" <|> reserved "nunca" <|> reserved "mañana" <|> reserved "ayer" <|> reserved "anoche" <|> reserved "siempre" <|> reserved "seguido" <|> reserved "aún" <|> reserved "pronto" <|> reserved "frecuentemente" <|> reserved "hoy" <|> reserved "antes")
 
 rat_rat_rat_videoSpec_videoSpec :: ExpParser (Rational -> Rational -> Rational -> VideoSpec -> VideoSpec)
 rat_rat_rat_videoSpec_videoSpec =
