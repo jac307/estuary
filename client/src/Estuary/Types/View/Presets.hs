@@ -33,6 +33,10 @@ presetViews = fromList [
        (Views [LabelView 11, TempoView])
       ]),
 
+      ("justCanvas", GridView 1 1 [
+      EmptyView
+      ]),
+
       ("fulltexteditor", GridView 1 1 [
       BorderDiv (Views [LabelView 0,TextView 1 0])
       ]),
