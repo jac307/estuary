@@ -116,7 +116,7 @@ methodWithSource :: String -> (Source -> Source -> Source) -> Parser (Source -> 
 methodWithSource methodName constructor = try $ do
   reservedOp "."
   reservedOp methodName
-  s <- source
+  s <- parens source
   return $ constructor s
 
 methodWithSourceAndParameters :: String -> (Source -> [Parameters] -> Source -> Source) -> Parser (Source -> Source)
